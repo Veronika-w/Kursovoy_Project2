@@ -1,4 +1,4 @@
-class Aeroplane:
+class Airplane:
     """
         Класс для работы с информацией о самолетах
     """
@@ -18,8 +18,8 @@ class Aeroplane:
         self.geo_altitude = geo_altitude
 
     @classmethod
-    def cast_to_object_list(cls, airplanes: list[dict]) -> list["Aeroplane"]:
-        """Возвращает список экземпляров Aeroplane из списка словарей"""
+    def cast_to_object_list(cls, airplanes: list[dict]) -> list["Airplane"]:
+        """Возвращает список экземпляров Airplane из списка словарей"""
 
         return [cls(**plane) for plane in airplanes]
 
@@ -38,9 +38,9 @@ class Aeroplane:
         else:
             self.velocity = None
 
-    def __ge__(self, other: 'Aeroplane') -> bool:
+    def __ge__(self, other: 'Airplane') -> bool:
         """Сравниваем скорости двух обьектов класса Aerplane"""
-        if not isinstance(other, Aeroplane):
+        if not isinstance(other, Airplane):
             return
         print(self.velocity, " >= ", other.velocity)
         return self.velocity >= other.velocity
@@ -61,10 +61,10 @@ class Aeroplane:
         else:
             self.geo_altitude = None
 
-    def __eq__(self, other: 'Aeroplane') -> bool:
+    def __eq__(self, other: 'Airplane') -> bool:
         """Сравниваем на равенство по высоте
         двух одинаковых обьектов класса Aerplane"""
-        if not isinstance(other, Aeroplane):
+        if not isinstance(other, Airplane):
             return
         print(self.geo_altitude, " == ", other.geo_altitude)
         return self.geo_altitude == other.geo_altitude
@@ -78,19 +78,19 @@ class Aeroplane:
 
 
 if __name__ == "__main__":
-    aeroplane1 = Aeroplane(
+    airplane1 = Airplane(
         "N5641X",
         "United States",
         341.57,
         10203.18
     )
 
-    aeroplane2 = Aeroplane(
+    airplane2 = Airplane(
         "PVL832",
         "Canada",
         341.58,
         10203.18
     )
 
-    print(aeroplane1 == aeroplane2)
-    print(aeroplane1 >= aeroplane2)
+    print(airplane1 == airplane2)
+    print(airplane1 >= airplane2)

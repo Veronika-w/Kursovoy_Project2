@@ -1,7 +1,7 @@
 from json import JSONDecodeError
 
 from src.abstract_classes import AbstractSaveInfoPlane
-from src.aeraplane import Aeroplane
+from src.airplane import Airplane
 import json
 import os
 from config import DATA_DIR
@@ -30,7 +30,7 @@ class SaveInfoPlane(AbstractSaveInfoPlane):
 
         return data
 
-    def add_airplane(self, airplane: Aeroplane) -> None:
+    def add_airplane(self, airplane: Airplane) -> None:
         """Добавляет самолет в файл"""
         airplanes_list = self.read_file()
 
@@ -51,7 +51,7 @@ class SaveInfoPlane(AbstractSaveInfoPlane):
 
         self.save_to_file(airplanes_list)
 
-    def get_airplane_by_name(self, word: str) -> list[Aeroplane]:
+    def get_airplane_by_name(self, word: str) -> list[Airplane]:
         """Возвращает список самолетов по ключевому слову"""
         found_airplanes = []
 
@@ -59,9 +59,9 @@ class SaveInfoPlane(AbstractSaveInfoPlane):
             if word in vac.get("name").lower():
                 found_airplanes.append(vac)
 
-        return Aeroplane.cast_to_object_list(found_airplanes)
+        return Airplane.cast_to_object_list(found_airplanes)
 
 if __name__ == '__main__':
-    airplanes = Aeroplane("UAL1621", "United States", 268.79, 10203.18)
+    airplanes = Airplane("UAL1621", "United States", 268.79, 10203.18)
     airplanes.geo_altitude
     print(airplanes )
