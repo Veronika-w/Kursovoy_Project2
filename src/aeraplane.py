@@ -38,7 +38,7 @@ class Aeroplane:
         else:
             self.velocity = None
 
-    def __ge__(self, other: 'Aerplane') -> bool:
+    def __ge__(self, other: 'Aeroplane') -> bool:
         """Сравниваем скорости двух обьектов класса Aerplane"""
         if not isinstance(other, Aeroplane):
             return
@@ -61,13 +61,19 @@ class Aeroplane:
         else:
             self.geo_altitude = None
 
-    def __eq__(self, other: 'Aerplane') -> bool:
+    def __eq__(self, other: 'Aeroplane') -> bool:
         """Сравниваем на равенство по высоте
         двух одинаковых обьектов класса Aerplane"""
         if not isinstance(other, Aeroplane):
             return
         print(self.geo_altitude, " == ", other.geo_altitude)
         return self.geo_altitude == other.geo_altitude
+
+
+    def __str__(self):
+        """ красивый вывод """
+        return (f'Позывной рейса: {self.callsign}, страна регистрации ВС: {self.country}, '
+                f'горизонтальная скорость: {self.velocity} м/с, геометрическая высота: {self.geo_altitude} м.')
 
 
 

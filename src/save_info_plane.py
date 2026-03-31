@@ -62,8 +62,6 @@ class SaveInfoPlane(AbstractSaveInfoPlane):
         return Aeroplane.cast_to_object_list(found_airplanes)
 
 if __name__ == '__main__':
-
-
-
-    # Пример работы контструктора класса с одним самолетом
     airplanes = Aeroplane("UAL1621", "United States", 268.79, 10203.18)
+    airplanes.geo_altitude
+    print(airplanes )
