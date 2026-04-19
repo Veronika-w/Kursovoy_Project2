@@ -35,7 +35,7 @@ class APIAdapter(AbstractAPIAdapter):
 
         return geo_coordinates
 
-    def get_aeroplanes_in_area(self, area_geo_coordinates: list) -> dict:
+    def get_airplanes_in_area(self, area_geo_coordinates: list) -> dict:
         # Параметры для фильтрации самолетов по их географическим координатам.
         params = {
             'lamin': area_geo_coordinates[0],
@@ -48,13 +48,13 @@ class APIAdapter(AbstractAPIAdapter):
 
         return response.json()
 
-    def get_aeroplanes_by_country(self, country: str) -> dict:
+    def get_airplanes_by_country(self, country: str) -> dict:
         get_coordinates = api.get_coordinates(country)
-        self.aeroplanes = self.get_aeroplanes_in_area(get_coordinates)
+        self.aeroplanes = self.get_airplanes_in_area(get_coordinates)
         return self.aeroplanes
 
 
 if __name__ == "__main__":
     api = APIAdapter()
-    get_coordinates = api.get_aeroplanes_by_country("Canada")
+    get_coordinates = api.get_airplanes_by_country("Canada")
     print(get_coordinates)

@@ -1,15 +1,13 @@
-# import requests
-
 import unittest
-
 from unittest.mock import Mock, patch
 
 from src.api_adapter import APIAdapter
 
+
 # тестируем класс HeadHunterAPI
 
-hh_vacancies = APIAdapter('Moscow', 1, 1, 'Developer')
-hh_vacancies.get_params()
+hh_vacancies = APIAdapter()
+hh_vacancies.get_coordinates()
 data_set_vacancy = hh_vacancies.parsing_data()
 
 
@@ -19,7 +17,7 @@ class TestHeadHunterAPI(unittest.TestCase):
     @patch('requests.get')
     def test_parsing_data_good(self, mock_get):
         # экземпляр класса HeadHunterAPI
-        api = APIAdapter('Moscow', 1, 0, 'Developer')
+        api = APIAdapter()
 
         # мокаем параметры
         mock_response = Mock()
@@ -37,7 +35,7 @@ class TestHeadHunterAPI(unittest.TestCase):
     @patch('requests.get')
     def test_parsing_data_bad(self, mock_get):
         # экземпляр класса HeadHunterAPI
-        api = HeadHunterAPI('Moscow', 1, 0, 'Developer')
+        api = APIAdapter('Moscow', 1, 0, 'Developer')
 
         # мокаем параметры
         mock_response = Mock()

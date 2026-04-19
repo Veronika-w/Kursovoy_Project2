@@ -1,67 +1,72 @@
-from json import JSONDecodeError
-
 from src.abstract_classes import AbstractSaveInfoPlane
 from src.airplane import Airplane
 import json
-import os
-from config import DATA_DIR
+
 
 
 class SaveInfoPlane(AbstractSaveInfoPlane):
     """ класс для работы с файлами """
-    def __init__(self, filename="info_plane.json"):
-        """Инициализатор класса JSONSaver"""
-        self.__file_path = os.path.join(DATA_DIR, filename)
+    info_about_airplane: list = []
 
-    def save_to_file(self, airplanes: list[dict]) -> None:
-        """Сохраняет данные в json-файл"""
-        with open(self.__file_path, "w", encoding="utf-8") as f:
-            json.dump(airplanes, f, ensure_ascii=False)
+    def __init__(self, path: str = 'data/info_plane.json'):
+        self.__path = path
+        self.info_about_airplane = []
 
-    def read_file(self) -> list[dict]:
-        """Считывает данные из json-файла"""
+    # блок функций для добавления в файлы
+    def add_to_file(self, airplanes: list[dict]):
+        """ функция добавляет данные формата json в файл"""
+        with open(self.__path, 'w', encoding='utf-8') as json_file:
+            json.dump(airplanes, json_file, ensure_ascii=False, indent=4)
+
+    # блок функций для чтения из файла
+    def read_file(self):
+        """ чтение json файла """
         try:
-            with open(self.__file_path, encoding="utf-8") as f:
-                data = json.load(f)
+            with open(self.__path, 'r', encoding='utf-8') as json_file:
+                data = json.load(json_file)
+            airplanes = []
+            for airplane in data['items']:
+                airplanes.append(Airplane(
+                    airplane['callsign'],
+                    airplane['country'],
+                    airplane['velocity'],
+                    airplane['geo_altitude']
+                ))
+
+                self.info_about_airplane = airplanes
         except FileNotFoundError:
-            data = []
-        except JSONDecodeError:
-            data = []
+            print(f"Файл {self.__path} не найден.")
+            self.info_about_airplane = []
 
-        return data
+    @classmethod
+    def return_airplanes(cls):
+        """ чтение json файла """
+        return cls.info_about_airplane
 
-    def add_airplane(self, airplane: Airplane) -> None:
-        """Добавляет самолет в файл"""
-        airplanes_list = self.read_file()
+    # удаление данных из файла
+    def remove_from_file(self):
+        """ функция удаляет данные из файла """
+        with open(self.__path, 'w'):
+            pass
 
-        if airplane.url not in [vac["url"] for vac in airplanes_list]:
-            airplanes_list.append(airplane.to_dict())
-            self.save_to_file(airplanes_list)
+    def __str__(self):
+        return str(getattr(self, 'info_about_airplane', ''))
 
-    def add_airplanes(self, airplanes: list[dict]) -> None:
-        """Добавляет самолеты в файл"""
-        self.save_to_file(airplanes)
 
-    def del_airplane(self, url: str) -> None:
-        """Удаляет самолет из файла"""
-        airplanes_list = self.read_file()
-        for index, vac in enumerate(airplanes_list):
-            if vac["url"] == url:
-                airplanes_list.pop(index)
+if __name__ == "__main__":
+    airplane1 = Airplane(
+        "N5641X",
+        "United States",
+        341.57,
+        10203.18
+    )
 
-        self.save_to_file(airplanes_list)
+    airplane2 = Airplane(
+        "PVL832",
+        "Canada",
+        341.58,
+        10203.18
+    )
 
-    def get_airplane_by_name(self, word: str) -> list[Airplane]:
-        """Возвращает список самолетов по ключевому слову"""
-        found_airplanes = []
-
-        for vac in self.read_file():
-            if word in vac.get("name").lower():
-                found_airplanes.append(vac)
-
-        return Airplane.cast_to_object_list(found_airplanes)
-
-if __name__ == '__main__':
-    airplanes = Airplane("UAL1621", "United States", 268.79, 10203.18)
-    airplanes.geo_altitude
-    print(airplanes )
+    new_airplane1 = SaveInfoPlane.add_to_file('../data/info_plane.json', 'airplane1')
+    print(airplane1)
