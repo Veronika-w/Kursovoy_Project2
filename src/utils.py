@@ -2,6 +2,7 @@ from src.save_info_plane import SaveInfoPlane
 from src.api_adapter import APIAdapter
 from src.airplane import Airplane
 
+
 class Aeroplane:
 
     result = []
@@ -15,10 +16,12 @@ class Aeroplane:
     @classmethod
     def cast_to_object_list(cls, country_aeroplanes):
         for item in country_aeroplanes:
-            one_aeroplane = {"callsign": item[1],
-                        "country": item[2],
-                        "velocity": item[5],
-                        "geo_altitude": item[7]}
+            one_aeroplane = {
+                "callsign": item[1],
+                "country": item[2],
+                "velocity": item[5],
+                "geo_altitude": item[7],
+            }
             callsign = item[1]
             country = item[2]
             velocity = item[5]
@@ -26,11 +29,12 @@ class Aeroplane:
             cls.result.append(one_aeroplane)
             cls(callsign, country, velocity, geo_altitude)
 
+
 # Создание экземпляра класса для работы с API сайтов с самолетами
 api = APIAdapter()
 
 # Получение информации о самолетах с opensky-network.org
-aeroplanes = api.get_coordinates('United States')
+aeroplanes = api.get_coordinates("United States")
 
 # Преобразование набора данных в список объектов
 aeroplanes = Aeroplane.cast_to_object_list(aeroplanes)
@@ -47,8 +51,10 @@ json_saver.add_to_file(aeroplanes)
 def user_interaction():
     country = input("Введите название страны: ")
     top_n = int(input("Введите количество самолетов для вывода в топ N: "))
-    filter_words = input("Введите названия стран для фильтрации по стране регистрации: ").split()
-    altitude_range = input("Введите диапазон высот полета: ") # Пример: 100000 - 150000
+    filter_words = input(
+        "Введите названия стран для фильтрации по стране регистрации: "
+    ).split()
+    altitude_range = input("Введите диапазон высот полета: ")  # Пример: 100000 - 150000
 
     filtered_aeroplanes = get_airplanes_by_country(aeroplanes, filter_words)
 

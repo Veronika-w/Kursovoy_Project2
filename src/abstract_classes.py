@@ -20,21 +20,19 @@ class AbstractAPIAdapter(ABC):
 
 
 class AbstractSaveInfoPlane(ABC):
-    """ абстрактный класс для класса SaveInfoPlane"""
+    """абстрактный класс для класса SaveInfoPlane"""
+
     @abstractmethod
     def __init__(self):
         pass
-
 
     @abstractmethod
     def add_to_file(self, airplanes):
         pass
 
-
     @abstractmethod
     def read_file(self):
         pass
-
 
     @abstractmethod
     def return_airplanes(self):

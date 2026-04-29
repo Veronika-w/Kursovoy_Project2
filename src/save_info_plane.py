@@ -3,35 +3,37 @@ from src.airplane import Airplane
 import json
 
 
-
 class SaveInfoPlane(AbstractSaveInfoPlane):
-    """ класс для работы с файлами """
+    """класс для работы с файлами"""
+
     info_about_airplane: list = []
 
-    def __init__(self, path: str = '../data/info_plane.json'):
+    def __init__(self, path: str = "../data/info_plane.json"):
         self.__path = path
         self.info_about_airplane = []
 
     # блок функций для добавления в файлы
     def add_to_file(self, airplanes: list[dict]):
-        """ функция добавляет данные формата json в файл"""
-        with open(self.__path, 'w', encoding='utf-8') as json_file:
+        """функция добавляет данные формата json в файл"""
+        with open(self.__path, "w", encoding="utf-8") as json_file:
             json.dump(airplanes, json_file, ensure_ascii=False, indent=4)
 
     # блок функций для чтения из файла
     def read_file(self):
-        """ чтение json файла """
+        """чтение json файла"""
         try:
-            with open(self.__path, 'r', encoding='utf-8') as json_file:
+            with open(self.__path, "r", encoding="utf-8") as json_file:
                 data = json.load(json_file)
             airplanes = []
-            for airplane in data['items']:
-                airplanes.append(Airplane(
-                    airplane['callsign'],
-                    airplane['country'],
-                    airplane['velocity'],
-                    airplane['geo_altitude']
-                ))
+            for airplane in data["items"]:
+                airplanes.append(
+                    Airplane(
+                        airplane["callsign"],
+                        airplane["country"],
+                        airplane["velocity"],
+                        airplane["geo_altitude"],
+                    )
+                )
 
                 self.info_about_airplane = airplanes
         except FileNotFoundError:
@@ -40,26 +42,21 @@ class SaveInfoPlane(AbstractSaveInfoPlane):
 
     @classmethod
     def return_airplanes(cls):
-        """ чтение json файла """
+        """чтение json файла"""
         return cls.info_about_airplane
 
     # удаление данных из файла
     def remove_from_file(self):
-        """ функция удаляет данные из файла """
-        with open(self.__path, 'w'):
+        """функция удаляет данные из файла"""
+        with open(self.__path, "w"):
             pass
 
     def __str__(self):
-        return str(getattr(self, 'info_about_airplane', ''))
+        return str(getattr(self, "info_about_airplane", ""))
 
 
 if __name__ == "__main__":
     j_saver = SaveInfoPlane()
-    airplane1 = Airplane(
-        "N5641X",
-        "United States",
-        341.57,
-        10203.18
-    )
+    airplane1 = Airplane("N5641X", "United States", 341.57, 10203.18)
 
     j_saver.add_to_file([airplane1.to_dict()])

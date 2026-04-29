@@ -26,11 +26,10 @@ def mock_opensky_api():
     platform = APIAdapter(opensky_url="https://opensky-network.org/api/states/all?")
     return platform
 
+
 def test_connect_success(mock_opensky_api):
     """Тест на успешное подключение к API."""
     with patch("requests.get") as mock_get:
         mock_get.return_value.status_code = 200
 
         assert mock_opensky_api.connect() is True
-
-
