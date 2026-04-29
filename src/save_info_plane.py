@@ -8,7 +8,7 @@ class SaveInfoPlane(AbstractSaveInfoPlane):
     """ класс для работы с файлами """
     info_about_airplane: list = []
 
-    def __init__(self, path: str = 'data/info_plane.json'):
+    def __init__(self, path: str = '../data/info_plane.json'):
         self.__path = path
         self.info_about_airplane = []
 
@@ -53,7 +53,18 @@ class SaveInfoPlane(AbstractSaveInfoPlane):
         return str(getattr(self, 'info_about_airplane', ''))
 
 
+# if __name__ == "__main__":
+#
+#
+#     airplane2 = Airplane(
+#         "PVL832",
+#         "Canada",
+#         341.58,
+#         10203.18
+#     )
+
 if __name__ == "__main__":
+    j_saver = SaveInfoPlane()
     airplane1 = Airplane(
         "N5641X",
         "United States",
@@ -61,12 +72,4 @@ if __name__ == "__main__":
         10203.18
     )
 
-    airplane2 = Airplane(
-        "PVL832",
-        "Canada",
-        341.58,
-        10203.18
-    )
-
-    new_airplane1 = SaveInfoPlane.add_to_file('../data/info_plane.json', 'airplane1')
-    print(airplane1)
+    j_saver.add_to_file(airplane1)

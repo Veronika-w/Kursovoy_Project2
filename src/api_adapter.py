@@ -9,10 +9,21 @@ class APIAdapter(AbstractAPIAdapter):
         и 'https://opensky-network.org/api/states/all?'
     """
 
-    def __init__(self) -> None:
+    def __init__(self, opensky_url="https://opensky-network.org/api/states/all?") -> None:
         self.openstreetmap_url = 'https://nominatim.openstreetmap.org/search'
-        self.opensky_url = 'https://opensky-network.org/api/states/all?'
+        self.opensky_url = opensky_url
         self.aeroplanes = None
+
+
+    def connect(self) -> bool:
+        """Метод проверяющий доступность API"""
+        try:
+            response = requests.get(self.opensky_url)
+            response.raise_for_status()
+            return True
+        except requests.exceptions.RequestException as e:
+            print(f"Ошибка подключения: {e}")
+            return False
 
     def get_coordinates(self, country: str) -> list:
         headers_nominatim = {
@@ -30,7 +41,6 @@ class APIAdapter(AbstractAPIAdapter):
 
         data = response.json()
 
-        # Пример ответа от nominatim.openstreetmap можно посмотреть в задании курсовой.
         geo_coordinates = data[0].get('boundingbox')
 
         return geo_coordinates
