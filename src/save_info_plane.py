@@ -53,16 +53,6 @@ class SaveInfoPlane(AbstractSaveInfoPlane):
         return str(getattr(self, 'info_about_airplane', ''))
 
 
-# if __name__ == "__main__":
-#
-#
-#     airplane2 = Airplane(
-#         "PVL832",
-#         "Canada",
-#         341.58,
-#         10203.18
-#     )
-
 if __name__ == "__main__":
     j_saver = SaveInfoPlane()
     airplane1 = Airplane(
@@ -72,4 +62,4 @@ if __name__ == "__main__":
         10203.18
     )
 
-    j_saver.add_to_file(airplane1)
+    j_saver.add_to_file([airplane1.to_dict()])

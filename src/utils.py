@@ -30,7 +30,7 @@ class Aeroplane:
 api = APIAdapter()
 
 # Получение информации о самолетах с opensky-network.org
-aeroplanes = api.get_coordinates('Spain')
+aeroplanes = api.get_coordinates('United States')
 
 # Преобразование набора данных в список объектов
 aeroplanes = Aeroplane.cast_to_object_list(aeroplanes)
@@ -41,7 +41,7 @@ aeroplane = Aeroplane("UAL1621", "United States", 268.79, 10203.18)
 
 json_saver = SaveInfoPlane()
 json_saver.add_to_file(aeroplanes)
-# json_saver.remove_from_file(aeroplanes)
+
 
 # Функция для взаимодействия с пользователем
 def user_interaction():

@@ -2,6 +2,14 @@ class Airplane:
     """
         Класс для работы с информацией о самолетах
     """
+    def to_dict(self):
+        return {
+            'callsign': self.callsign,
+            'country': self.country,
+            'velocity': self.velocity,
+            'geo_altitude': self.geo_altitude
+        }
+
     MIN_VELOCITY = 0  # минимальная скорость самолета (м/c)
     MAX_VELOCITY = 700  # максимальная скорость самолета (м/c)
 
