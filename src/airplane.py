@@ -89,10 +89,10 @@ class Airplane:
         )
 
 
-if __name__ == "__main__":
-    airplane1 = Airplane("N5641X", "United States", 341.57, 10203.18)
-
-    airplane2 = Airplane("PVL832", "Canada", 341.58, 10203.18)
-
-    print(airplane1 == airplane2)
-    print(airplane1 >= airplane2)
+# if __name__ == "__main__":
+#     airplane1 = Airplane("N5641X", "United States", 341.57, 10203.18)
+#
+#     airplane2 = Airplane("PVL832", "Canada", 341.58, 10203.18)
+#
+#     print(airplane1 == airplane2)
+#     print(airplane1 >= airplane2)

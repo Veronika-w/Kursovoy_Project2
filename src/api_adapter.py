@@ -69,7 +69,7 @@ class APIAdapter(AbstractAPIAdapter):
         return self.aeroplanes
 
 
-if __name__ == "__main__":
-    api = APIAdapter()
-    get_coordinates = api.get_airplanes_by_country("Canada")
-    print(get_coordinates)
+# if __name__ == "__main__":
+#     api = APIAdapter()
+#     get_coordinates = api.get_airplanes_by_country("Canada")
+#     print(get_coordinates)
